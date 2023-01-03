@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import type { NextPage } from "next";
-import { signIn, signOut, useSession } from "next-auth/react";
+import type { NextPage, NextPageContext } from "next";
+import { getSession, signIn, signOut, useSession } from "next-auth/react";
 import { Inter } from '@next/font/google'
 import { useEffect } from 'react'
 import { io } from 'socket.io-client'
@@ -38,13 +38,25 @@ const Home: NextPage = () => {
           {
             data?.user ? 
               (<button onClick={() => signOut()}>Sign Out</button>) :
-              (<button onClick={() => signIn("google")}>Sign In</button>)
+              (
+              <button onClick={() => signIn("google")}>Sign In With Google</button>
+              )
           }
         </div>
       </center>
       
     </>
   );
+};
+
+export async function getServerSideProps(context: NextPageContext) {
+  const session = await getSession(context);
+
+  return {
+    props: {
+      session
+    }
+  };
 };
 
 export default Home;
