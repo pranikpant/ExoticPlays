@@ -3,10 +3,21 @@ const http = require("http"); // TODO: update to an HTTPS server
 const cors = require('cors');
 const PORT = process.env.PORT || 8080;
 const app = express();
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.json());
 app.use(express.static("public"));
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 
 const server = http.createServer(app);
+
+server.listen(PORT, () => {
+    console.log(`Server running at: http://localhost:${PORT}/`);
+});
+
 const io = require("socket.io")(server, {
     cors: {
         origin: "http://localhost:3000",
@@ -14,11 +25,24 @@ const io = require("socket.io")(server, {
     },
 });
 
+const authenticateUser = async (email, password) => {
+    return true;
+};
+
 const connectedClients = new Map();
 
-//app.get('/', (request, response) => {
-//    response.sendFile(__dirname + "/client/src/index.js");
-//});
+app.post('/api/auth/login', (request, response) => {
+    console.log("login attempt: ", request.body);
+    const { email, password } = request.body;
+    if (authenticateUser(email, password)) {
+        response.status(200).json({ success: true });
+    } else {
+        response.status(401).json({
+          success: false,
+          error: 'Invalid email or password'
+        });
+    }
+});
 
 io.on('connection', (socket) => {
     console.log(`client ${socket.id} has connected to the server`);
@@ -37,6 +61,3 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(PORT, () => {
-    console.log(`Server running at: http://localhost:${PORT}/`);
-});

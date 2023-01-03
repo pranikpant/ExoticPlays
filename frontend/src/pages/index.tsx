@@ -4,6 +4,8 @@ import { getSession, signIn, signOut, useSession } from "next-auth/react";
 import { Inter } from '@next/font/google'
 import { useEffect } from 'react'
 import { io } from 'socket.io-client'
+import { Button, Center, Text } from '@chakra-ui/react';
+import { FcGoogle } from 'react-icons/fc';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -37,9 +39,13 @@ const Home: NextPage = () => {
         <div>
           {
             data?.user ? 
-              (<button onClick={() => signOut()}>Sign Out</button>) :
+              (<Button onClick={() => signOut()}>Sign Out</Button>) :
               (
-              <button onClick={() => signIn("google")}>Sign In With Google</button>
+              <Center p={8}>
+                <Button colorScheme='blue' size='sm' maxW={'md'} variant={'outline'} leftIcon={<FcGoogle />} onClick={() => signIn('google')}>
+                  <Center> <Text>Continue with Google</Text> </Center>
+                </Button>
+              </Center>
               )
           }
         </div>
