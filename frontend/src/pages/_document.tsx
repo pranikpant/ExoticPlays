@@ -7,7 +7,7 @@ export default function Document() {
     <Html lang="en">
       <Head />
       <body>
-      <ColorModeScript initialColorMode={'light'} />
+      <ColorModeScript initialColorMode={theme.initialColorMode} />
         <Main />
         <NextScript />
       </body>

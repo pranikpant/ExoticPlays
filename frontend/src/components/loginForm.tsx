@@ -50,10 +50,9 @@ const LoginForm = () => {
         <Stack>
           <FormControl>
               <InputGroup>
-                  <InputLeftElement
-                      pointerEvents="none"
-                      children={<MdEmail color="black" />}
-                  />
+                  <InputLeftElement>
+                      <MdEmail color="black" />
+                  </InputLeftElement>
                   <Input 
                       color={'blackAlpha.900'}
                       fontSize='xs'
@@ -71,10 +70,9 @@ const LoginForm = () => {
           </FormControl>
           <FormControl>
               <InputGroup>
-                  <InputLeftElement
-                      pointerEvents="none"
-                      children={<RiLockPasswordFill color='black' />}
-                  />
+                  <InputLeftElement>
+                    <RiLockPasswordFill color='black' />
+                  </InputLeftElement>
                   <Input
                       mb={'2'}
                       outline={{color:'black', width: '4px', errorColor: 'red.500', offset: '2px'}}
@@ -99,7 +97,7 @@ const LoginForm = () => {
           </FormControl>
       </Stack>
       {error && <Text size={'lg'} color='red.500'>{error}</Text>}
-      <Button mt={'2'} mb={'5'} type='submit' h='15%' w='25%' colorScheme={'red'} alignContent="left">
+      <Button mt={'2'} mb={'5'} type={'submit'} h={'28px'} w={'25%'} colorScheme={"whatsapp"} alignContent="left">
         Log in
       </Button>
       <Center p={8} mb={'3'}>

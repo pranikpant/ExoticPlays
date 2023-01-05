@@ -6,8 +6,7 @@ const EnterButton = () => {
 
     const OverlayOne = () => (
         <ModalOverlay
-          bg='red.400'
-          backdropFilter='blur(10px) hue-rotate(90deg)'
+          backdropFilter='blur(10px) hue-rotate(-20deg)'
         />
       )
     
@@ -17,14 +16,13 @@ const EnterButton = () => {
       return (
         <>
           <Button
+            //isLoading
             p={6}
-            color='white'
+            width={"125px"}
+            color='black'
             fontWeight='bold'
-            borderRadius='md'
-            bgGradient='linear(to-r, teal.500, green.500)'
-            _hover={{
-                bgGradient: 'linear(to-r, red.500, yellow.500)',
-            }}
+            borderRadius='0'
+            bg="yellow"
             onClick={() => {
               setOverlay(<OverlayOne />)
               onOpen()
