@@ -1,30 +1,14 @@
 import Head from 'next/head'
 import type { NextPage, NextPageContext } from "next";
-import { getSession, signIn, signOut, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { Inter } from '@next/font/google'
-import { useEffect } from 'react'
-import { io } from 'socket.io-client'
-import { Box, Button, Center} from '@chakra-ui/react';
-import { FcGoogle } from 'react-icons/fc';
+import { Box} from '@chakra-ui/react';
 import EnterButton from '../components/enterButton';
 
 const inter = Inter({ subsets: ['latin'] })
 
 const Home: NextPage = () => {
 
-  useEffect(() => {
-    const socket = io('http://localhost:8080');
-    socket.on('connect', () => {
-      console.log("successfully connected to the exotic playz server");
-    });
-    return () => {
-      socket.close();
-    };
-  }, []);
-
-  const { data } = useSession();
-  console.log("Data:", data);
-  
   return (
     <Box h='50vh' backgroundColor ='yellow.100'>
       <Head>
@@ -36,20 +20,6 @@ const Home: NextPage = () => {
       <h1>Exotic Playsssssssss</h1>
       <p>Come play w some baddies</p>
       <center>
-        <h3>{ data?.user?.name }</h3> 
-        <div>
-          {
-            data?.user ? 
-              (<Button onClick={() => signOut()}>Sign Out</Button>) :
-              (
-              <Center p={8}>
-                <Button colorScheme='blue' size='sm' maxW={'md'} leftIcon={<FcGoogle />} onClick={() => signIn('google')}>
-                  <Center> Continue with Google </Center>
-                </Button>
-              </Center>
-              )
-          }
-        </div>
         <div>
           <EnterButton />  
         </div>

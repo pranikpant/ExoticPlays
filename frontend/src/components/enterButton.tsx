@@ -8,10 +8,10 @@ const EnterButton = () => {
         <ModalOverlay
           backdropFilter='blur(10px) hue-rotate(-20deg)'
         />
-      )
+      );
     
-      const { isOpen, onOpen, onClose } = useDisclosure()
-      const [overlay, setOverlay] = React.useState(<OverlayOne />)
+      const { isOpen, onOpen, onClose } = useDisclosure();
+      const [overlay, setOverlay] = React.useState(<OverlayOne />);
     
       return (
         <>
@@ -38,7 +38,7 @@ const EnterButton = () => {
             </ModalContent>
           </Modal>
         </>
-      )
+      );
 }
 
 export default EnterButton;

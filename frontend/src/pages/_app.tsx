@@ -6,9 +6,9 @@ import { theme } from '../lib/chakra/theme'
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}> 
-      <ChakraProvider theme={theme}>
-          <Component {...pageProps} />
-      </ChakraProvider>
+        <ChakraProvider theme={theme}>
+            <Component {...pageProps} />
+        </ChakraProvider>
     </SessionProvider>
   )
 }

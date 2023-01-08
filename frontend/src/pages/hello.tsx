@@ -1,12 +1,27 @@
-import { Button } from '@chakra-ui/react'
-import { signOut, useSession } from 'next-auth/react'
-import React from 'react'
+import { Stack } from '@chakra-ui/react'
+import React, { useEffect } from 'react'
+import { io } from 'socket.io-client';
+import ModelCard from '../components/modelCard';
 
-export default function hello() {
-    
+const socket = io('http://localhost:5000');
+
+export default function Hello() {
+  
+  useEffect(() => {
+    socket.on('connect', () => {
+      console.log("successfully connected to the exotic playz server");
+      //socket.emit("join_room", roomId);
+    });
+    return () => {
+      socket.close();
+    };
+  }, []);
+  
   return (
-    <><h1>Login Successful !!</h1><h2> Welcome Back</h2>
-    <Button colorScheme="green" onClick={() => signOut()}>Sign Out</Button>
-    </>
+    <Stack direction='row' spacing={4} align='center'>
+
+      <ModelCard />
+
+    </Stack>
   )
 }

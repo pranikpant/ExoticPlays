@@ -1,4 +1,4 @@
-import {Stack, Heading, Text, Button, Center, Input, Checkbox, Box, FormControl, FormHelperText, InputGroup, InputLeftElement, InputRightElement, Link, FormErrorMessage, useDisclosure, Modal, ModalContent, Icon } from "@chakra-ui/react";
+import {Stack, Heading, Text, Button, Center, Input, Checkbox, Box, FormControl, FormHelperText, InputGroup, InputLeftElement, InputRightElement, Link, FormErrorMessage } from "@chakra-ui/react";
 
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -7,16 +7,15 @@ import { FcGoogle } from "react-icons/fc";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { LoginAuthentication } from "../pages/api/auth/loginAuthentication";
-import SignupForm from "./signupForm";
 
-const LoginForm = () => {
+const SignupForm = () => {
 
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | undefined | null>(null);
   const [showPassword, setShowPassword] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const handleShowClick = () => setShowPassword(!showPassword);
 
   const handleInvalidEmail = (e: React.FormEvent<HTMLInputElement>) => {
@@ -45,14 +44,14 @@ const LoginForm = () => {
     )
   }  
   return (
-    <Stack className="loginBox" boxShadow='md' bg='whiteAlpha.900' p={'20'} rounded='md'>
-      <Heading paddingBottom={'4'} as='h1' color={'blackAlpha.900'}> Welcome Back.</Heading>
+    <Stack h={'75vh'} className="loginBox" boxShadow='md' bg='whiteAlpha.900' p={'20'} rounded='md'>
+      <Heading paddingBottom={'4'} as='h1' color={'blackAlpha.900'}> Nice to meet you!</Heading>
       <form onSubmit={handleSubmit}>
         <Stack>
           <FormControl>
               <InputGroup>
                   <InputLeftElement>
-                    <Icon as={MdEmail} color='black' />
+                      <MdEmail color="black" />
                   </InputLeftElement>
                   <Input 
                       color={'blackAlpha.900'}
@@ -69,33 +68,6 @@ const LoginForm = () => {
                   />
               </InputGroup>
           </FormControl>
-          <FormControl>
-              <InputGroup>
-                  <InputLeftElement>
-                    <Icon as={RiLockPasswordFill} color='black' />
-                  </InputLeftElement>
-                  <Input
-                      mb={'2'}
-                      outline={{color:'black', width: '4px', errorColor: 'red.500', offset: '2px'}}
-                      color={'blackAlpha.900'}
-                      fontSize='xs'
-                      isRequired={true}
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Type in your password"
-                      _placeholder={{color: "blackAlpha.900", fontSize: 'xs'}}
-                  />
-                  <InputRightElement width="4.5rem">
-                      <Button color={'blackAlpha.900'} h="1.75rem" size="xs" onClick={handleShowClick}>
-                        {showPassword ? "Hide" : "Show"}
-                      </Button>
-                  </InputRightElement>
-              </InputGroup>
-              <FormHelperText color={'blackAlpha.900'} textAlign="right">
-                  <Link>Forgot Password?</Link>
-              </FormHelperText>
-          </FormControl>
       </Stack>
       {error && <Text size={'lg'} color='red.500'>{error}</Text>}
       <Button fontSize={'sm'} borderRadius={'md'} mt={'2'} mb={'5'} type={'submit'} h={'28px'} w={'25%'} colorScheme={"whatsapp"} alignContent="left">
@@ -111,18 +83,12 @@ const LoginForm = () => {
 
       <Stack pb={'-1.5'} className="loginFooter" justify={'center'} color={'blackAlpha.900'} spacing={'2'}>
         <Text as='div' fontSize={'sm'} textAlign={'center'}>
-          <span >First time? </span>
-          <Button color={'blackAlpha.900'} variant='link' onClick={() => onOpen()}> Join here </Button>
+          <span >Already a member?  </span>
+          <Button color={'blackAlpha.900'} variant='link'> Log in </Button>
         </Text>
       </Stack>
-
-      <Modal size={'lg'} closeOnOverlayClick={false} isCentered isOpen={isOpen} onClose={onClose}>
-          <ModalContent>
-              <SignupForm />
-          </ModalContent>
-      </Modal>
     </Stack>
   )
 }
 
-export default LoginForm;
+export default SignupForm;
